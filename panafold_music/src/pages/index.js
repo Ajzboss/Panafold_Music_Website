@@ -1,14 +1,64 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-
+import { Container } from 'postcss'
+import Head from 'next/head'
+import { useState,useEffect } from "react";
+import Album from './Albums/[id]';
 const inter = Inter({ subsets: ['latin'] })
 
+//https://itunes.apple.com/us/rss/topalbums/limit=100/json
+
+//{"feed":{"author":{"name":{"label":"iTunes Store"}, "uri":{"label":"http://www.apple.com/itunes/"}}
 export default function Home() {
+  const [albums, setAlbums] = useState([]);
+
+  const fetchAlbums = async () => {
+      fetch("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
+      .then(response=>{
+        return response.json();
+      })
+      .then(data =>{
+        setAlbums(data.feed.entry);
+        console.log(data.feed.entry)
+      }
+        )
+  
+  }
+  useEffect(() => {
+    fetchAlbums();
+    console.log(albums);
+  }, [])
   return (
+    <>
+    <Head>
+    <title>Panafold Music</title>
+    </Head>
+     <div className=" w-full items-center justify-start font-mono text-sm flex px-10 py-10 border-b-2 border-blue-500 bg-white h-12">
+      <Image src="/panafold_logo.jpg"  width={30} height={30} alt="/"></Image>
+
+      <p className="ml-5 font-bold text-lg whitespace-nowrap">
+         Panafold Music
+        </p>
+      <div className='flex justify-end w-full'> 
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"> Sign In</button>
+      <button className="bg-white hover:bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-full ml-5 border-2"> Sign Up</button>
+      </div>
+      </div>
+
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+      <ul className=''>
+          {albums.map(album => (
+            <>
+            <li key={album.id.attributes.id}>{album.title.label}</li>
+             <Image src={album["im:image"][2].label} width={100} height={100} alt={album.title.label}></Image>
+            </>
+          ))}
+        </ul> 
+
+     
+      {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
           <code className="font-mono font-bold">src/pages/index.js</code>
@@ -112,7 +162,8 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
+  </>
   )
 }
