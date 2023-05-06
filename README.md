@@ -3,15 +3,15 @@ Panafold Is Going Into The Music Industry!
 The valiant intern has taken on the task of coding up a rough draft of the companies brand new website!
 #To Test this Website:
 ### 1. Git clone the repo
-### 2. cd into the /panafold_music folder
-### 2.
-'''
+### 2. cd into the `panafold_music` folder
+### 2. Install Required Dependencies
+```
 npm install
-'''
-### 3.
-'''
+```
+### 3. Start the Program in Terminal
+```
 'npm run dev'
-'''
+```
 # Feature List:
 ### 1. Fetches Data from the Apple Music JSON provided
   - #### Utilizes NEXTJS's getStatic props to render at build time, improving performance
