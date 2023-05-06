@@ -14,12 +14,12 @@ npm install
 ```
 # Feature List:
 ### 1. Fetches Data from the Apple Music JSON provided
-  - #### Utilizes NEXTJS's getStatic props to render at build time, improving performance
+  -  Utilizes NEXTJS's getStatic props to render at build time, improving performance
 ### 2. Displays fetched data in a responsive flexbox
 ### 3. Dynamically links each album to it's own individual page, with album specific data sent as a prop to the unique page to populate
-  - #### Each Page has a back to home button which can be used to return to the main album list
+  -  Each Page has a back to home button which can be used to return to the main album list
 ### 4. Includes a search bar that searches through the album list and displays matching
-  - #### Is a strict search(does not deal misspelling, no autocorrect)
-  - #### Queries a search on typing out a phrase and pressing enter
+  -  Is a strict search(does not deal misspelling, no autocorrect)
+  -  Queries a search on typing out a phrase and pressing enter
 ### 5. Includes a sort function that sorts 3 categories(Artist,Album Name, Release Date), selectable by a dropdown list
 
