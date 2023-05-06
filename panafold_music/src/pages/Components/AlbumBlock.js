@@ -10,6 +10,7 @@ return (
         <p className="ml-5 font-light" key={album.id.attributes.id}>{album["im:artist"].label}</p>
         <p className="ml-5 font-light" key={album.id.attributes.id}>{album["im:price"].label}</p>
         <p className="ml-5 font-extralight" key={album.id.attributes.id}>{album["rights"].label}</p>
+        <p className="ml-5 font-extralight" key={album.id.attributes.id}>{album["im:releaseDate"].attributes.label}</p>
     </h1 >
 
 

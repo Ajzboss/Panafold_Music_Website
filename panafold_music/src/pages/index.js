@@ -8,6 +8,7 @@ import Header from './Components/Layout';
 import AlbumBlock from './Components/AlbumBlock';
 import SortDropdown from './Components/SortDropdown';
 import * as React from 'react';
+import Layout from './Components/Layout';
 const inter = Inter({ subsets: ['latin'] })
 
 function getPropByString(obj, propString) {
@@ -92,7 +93,7 @@ export default function Home({albums}) {
     <>
 
     {console.log(albums.sort(sort_by("im:price.attributes.amount",false)))}
-    <Header home={true}>
+    <Layout home={true}>
       <SortDropdown selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} sortDirection={sortDirection} setSortDirection={setSortDirection}/>
         <div className='flex flex-wrap  justify-between content-center flex-grow '>
           {albums.sort(sort_by(options[selectedIndex],sortDirection,null)).map(album => (
@@ -102,7 +103,7 @@ export default function Home({albums}) {
           ))}
         </div> 
         
-    </Header>
+    </Layout>
  
       {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
