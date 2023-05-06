@@ -23,3 +23,11 @@ npm install
   -  Queries a search on typing out a phrase and pressing enter
 ### 5. Includes a sort function that sorts 3 categories(Artist,Album Name, Release Date), selectable by a dropdown list
 
+## Dependencies:
+-NextJS
+-React
+-Tailwind CSS
+-Material UI
+-A couple public imported components
+
+
