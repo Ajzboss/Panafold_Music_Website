@@ -1,6 +1,8 @@
 # Panafold
-Panafold Is Going Into The Music Industry!
-The valiant intern has taken on the task of coding up a rough draft of the companies brand new website!
+Panafold Is Going Into The Music Industry. 
+
+To help out, the valiant intern has coded up a rough draft of the companies brand new website!
+
 #To Test this Website:
 ### 1. Git clone the repo
 ### 2. cd into the `panafold_music` folder
