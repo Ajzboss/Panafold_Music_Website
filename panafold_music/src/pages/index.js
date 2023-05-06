@@ -4,19 +4,47 @@ import { Container } from 'postcss'
 import Head from 'next/head'
 import { useState,useEffect } from "react";
 import Album from './albums/[id]';
-import Header from './Components/Header';
+import Header from './Components/Layout';
 import AlbumBlock from './Components/AlbumBlock';
+import SortDropdown from './Components/SortDropdown';
+import * as React from 'react';
 const inter = Inter({ subsets: ['latin'] })
 
+function getPropByString(obj, propString) {
+  if (!propString)
+    return obj;
+
+  var prop, props = propString.split('.');
+
+  for (var i = 0, iLen = props.length - 1; i < iLen; i++) {
+    prop = props[i];
+
+    var candidate = obj[prop];
+    if (candidate !== undefined) {
+      obj = candidate;
+    } else {
+      break;
+    }
+  }
+  return obj[props[i]];
+}
+
+var obj = {
+  foo: {
+    bar: {
+      baz: 'x'
+    }
+  }
+};
 //UNiversal sort function for all fields of the table
 const sort_by = (field, reverse, primer) => {
 
   const key = primer ?
     function(x) {
-      return primer(x[field]);
+      return primer(getPropByString(x,field));
     } :
     function(x) {
-      return x[field];
+      return getPropByString(x,field);
     };
 
   reverse = !reverse ? 1 : -1;
@@ -25,10 +53,6 @@ const sort_by = (field, reverse, primer) => {
     return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
   };
 };
-
-//https://itunes.apple.com/us/rss/topalbums/limit=100/json
-
-//{"feed":{"author":{"name":{"label":"iTunes Store"}, "uri":{"label":"http://www.apple.com/itunes/"}}
 
 
 export async function getStaticProps() {
@@ -56,13 +80,22 @@ export default function Home({albums}) {
         )
   
   } */
-
-  return (
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [sortDirection, setSortDirection] = React.useState(true);
+  const options = [
+    'im:price.attributes.amount',
+    'im:artist.label',
+    'im:name.label',
+    'im:releaseDate.label',
+  ];
+    return (
     <>
-    <Header home>
-      
-      <div className='flex flex-wrap  justify-between content-center flex-grow '>
-          {albums.map(album => (
+
+    {console.log(albums.sort(sort_by("im:price.attributes.amount",false)))}
+    <Header home={true}>
+      <SortDropdown selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} sortDirection={sortDirection} setSortDirection={setSortDirection}/>
+        <div className='flex flex-wrap  justify-between content-center flex-grow '>
+          {albums.sort(sort_by(options[selectedIndex],sortDirection,null)).map(album => (
             <>
             <AlbumBlock album={album}> </AlbumBlock>
             </>

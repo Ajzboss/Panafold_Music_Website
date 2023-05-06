@@ -1,4 +1,4 @@
-import Header from "../Components/Header"
+import Header from "../Components/Layout"
 import AlbumBlock from "../Components/AlbumBlock"
 export function getAllAlbumIds(albums) {
   return albums.map(album => {
@@ -36,7 +36,7 @@ export default function Album({ albumData }) {
   
   return (
     <>
-    <Header>
+    <Header home={false}>
      <AlbumBlock album={albumData[0]}> </AlbumBlock>  
     </Header >
     </>
