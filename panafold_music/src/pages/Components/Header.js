@@ -1,5 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+
 export default function Header({children}){
     return (
         <>
@@ -17,7 +20,9 @@ export default function Header({children}){
             <button className="bg-white hover:bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-full ml-5 border-2"> Sign Up</button>
           </div>
           </div>
-          <main>{children}</main>
+          <main
+      className={`flex min-h-screen flex-col items-left justify-between p-24 pl-12 pr-12 ${inter.className} bg-blue-100`}
+    >{children}</main>
 
           </>
     )

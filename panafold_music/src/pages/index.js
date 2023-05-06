@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import { Container } from 'postcss'
 import Head from 'next/head'
 import { useState,useEffect } from "react";
-import Album from './Albums/[id]';
+import Album from './albums/[id]';
 import Header from './Components/Header';
 import AlbumBlock from './Components/AlbumBlock';
 const inter = Inter({ subsets: ['latin'] })
@@ -30,10 +30,11 @@ const sort_by = (field, reverse, primer) => {
 
 //{"feed":{"author":{"name":{"label":"iTunes Store"}, "uri":{"label":"http://www.apple.com/itunes/"}}
 
+
 export async function getStaticProps() {
   const res = await fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
   const albums = await res.json()
-  // console.log(albums)
+  //console.log(albums)
 
   return {
     props: {
@@ -59,10 +60,7 @@ export default function Home({albums}) {
   return (
     <>
     <Header home>
-    <main
-      className={`flex min-h-screen flex-col items-left justify-between p-24 pl-12 pr-12 ${inter.className} bg-blue-100`}
-    >
-      {console.log(albums)}
+      
       <div className='flex flex-wrap  justify-between content-center flex-grow '>
           {albums.map(album => (
             <>
@@ -71,7 +69,6 @@ export default function Home({albums}) {
           ))}
         </div> 
         
-        </main>
     </Header>
  
       {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">

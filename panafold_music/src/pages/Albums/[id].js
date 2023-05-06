@@ -1,9 +1,10 @@
-import { useRouter } from 'next/router';
+import Header from "../Components/Header"
+import AlbumBlock from "../Components/AlbumBlock"
 export function getAllAlbumIds(albums) {
   return albums.map(album => {
     return {
       params: {
-        id: album.replace(/\.md$/, '')
+        id: album.id.attributes["im:id"]
       }
     }
   })
@@ -11,24 +12,33 @@ export function getAllAlbumIds(albums) {
 export async function getStaticPaths() {
   const res = await fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
   const albums = await res.json()
-  const paths = getAllAlbumIds(albums)
+  const paths = getAllAlbumIds(albums.feed.entry)
   //console.log(paths)
     return {
-      paths: paths,
+      paths,
       fallback: false
     };
   } 
-export async function getStaticProps({ paths }) {
+ export async function getStaticProps({ params }) {
   const res = await fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
   const albums = await res.json()
-  const album= albums.filter(album => album.id.attributes.id === paths.id) 
-    return {
+  const albumData= albums.feed.entry.filter(album => album.id.attributes["im:id"] === params.id) 
+  console.log(params.id)
+  console.log(albumData[0].id.attributes["im:id"])
+    return {  
       props: {
-        album,
+        albumData,
       }, // will be passed to the page component as props
     };
-  }
+  } 
 
-export default function Album({ albumID }) {
-
+export default function Album({ albumData }) {
+  
+  return (
+    <>
+    <Header>
+     <AlbumBlock album={albumData[0]}> </AlbumBlock>  
+    </Header >
+    </>
+    )
 } 
