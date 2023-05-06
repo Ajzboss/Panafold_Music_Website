@@ -1,5 +1,6 @@
 import Layout from "../Components/Layout"
 import AlbumBlock from "../Components/AlbumBlock"
+import AlbumProfile from "../Components/AlbumProfile"
 export function getAllAlbumIds(albums) {
   return albums.map(album => {
     return {
@@ -37,7 +38,7 @@ export default function Album({ albumData }) {
   return (
     <>
     <Layout home={false}>
-     <AlbumBlock album={albumData[0]}> </AlbumBlock>  
+     <AlbumProfile album={albumData[0]}> </AlbumProfile>  
     </Layout >
     </>
     )

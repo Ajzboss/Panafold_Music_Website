@@ -12,7 +12,7 @@ const options = [
   'Sort By Release Date',
 ];
 
-export default function SearchBar({selectedIndex, setSelectedIndex, sortDirection, setSortDirection}) {
+export default function SortDropdown({selectedIndex, setSelectedIndex, sortDirection, setSortDirection}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -32,8 +32,8 @@ export default function SearchBar({selectedIndex, setSelectedIndex, sortDirectio
   }
 
   return (
-    <div className='flex w-full mb-5'>
-      <List className='w-52 '
+    <>
+      <List className='w-96	 h-16'
         component="nav"
         aria-label="Device settings"
         sx={{ bgcolor: 'background.paper' }}
@@ -65,6 +65,7 @@ export default function SearchBar({selectedIndex, setSelectedIndex, sortDirectio
       >
         {options.map((option, index) => (
           <MenuItem
+         
             key={option}
             selected={index === selectedIndex}
             disabled={index === 0}
@@ -83,6 +84,6 @@ export default function SearchBar({selectedIndex, setSelectedIndex, sortDirectio
       }
       
       </p>  </Button>
-    </div>
+    </>
   );
 }
