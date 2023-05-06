@@ -8,13 +8,42 @@ import Header from './Components/Header';
 import AlbumBlock from './Components/AlbumBlock';
 const inter = Inter({ subsets: ['latin'] })
 
+//UNiversal sort function for all fields of the table
+const sort_by = (field, reverse, primer) => {
+
+  const key = primer ?
+    function(x) {
+      return primer(x[field]);
+    } :
+    function(x) {
+      return x[field];
+    };
+
+  reverse = !reverse ? 1 : -1;
+
+  return function(a, b) {
+    return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+  };
+};
+
 //https://itunes.apple.com/us/rss/topalbums/limit=100/json
 
 //{"feed":{"author":{"name":{"label":"iTunes Store"}, "uri":{"label":"http://www.apple.com/itunes/"}}
-export default function Home() {
-  const [albums, setAlbums] = useState([]);
 
-  const fetchAlbums = async () => {
+export async function getStaticProps() {
+  const res = await fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
+  const albums = await res.json()
+  // console.log(albums)
+
+  return {
+    props: {
+      albums:albums.feed.entry,
+    },
+  }
+}
+export default function Home({albums}) {
+
+  /* const fetchAlbums = async () => {
       fetch("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
       .then(response=>{
         return response.json();
@@ -25,27 +54,26 @@ export default function Home() {
       }
         )
   
-  }
-  useEffect(() => {
-    fetchAlbums();
-    console.log(albums);
-  }, [])
+  } */
+
   return (
     <>
-    <Header/>
+    <Header home>
     <main
-      className={`flex min-h-screen flex-col items-left justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen flex-col items-left justify-between p-24 pl-12 pr-12 ${inter.className} bg-blue-100`}
     >
-      <div className='flex flex-wrap items-stretch justify-between '>
+      {console.log(albums)}
+      <div className='flex flex-wrap  justify-between content-center flex-grow '>
           {albums.map(album => (
             <>
-            
             <AlbumBlock album={album}> </AlbumBlock>
             </>
           ))}
         </div> 
-
-     
+        
+        </main>
+    </Header>
+ 
       {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
@@ -151,7 +179,6 @@ export default function Home() {
           </p>
         </a>
       </div> */}
-    </main>
-  </>
+     </>
   )
 }

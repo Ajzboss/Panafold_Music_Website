@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-export default function Header(){
+export default function Header({children}){
     return (
         <>
         <Head>
@@ -17,6 +17,8 @@ export default function Header(){
             <button className="bg-white hover:bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-full ml-5 border-2"> Sign Up</button>
           </div>
           </div>
+          <main>{children}</main>
+
           </>
     )
 }
